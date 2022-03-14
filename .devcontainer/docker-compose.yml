@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  app:
+    image: rusconn/recoil-tutorial-next
+    build:
+      context: .devcontainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sleep infinity
