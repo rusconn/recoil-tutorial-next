@@ -1,5 +1,5 @@
 import { Button, css, TextField, Theme, Box } from "@mui/material";
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { ChangeEventHandler, memo, MouseEventHandler } from "react";
 
 const button = (theme: Theme) => css`
   margin-left: ${theme.spacing(2)};
@@ -12,7 +12,7 @@ export type Props = {
   onAdd: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const TodoItemCreator = ({ value, onChange, onAdd }: Props) => (
+const RawTodoItemCreator = ({ value, onChange, onAdd }: Props) => (
   <Box>
     <TextField variant="standard" label="todo content" value={value} onChange={onChange} />
     <Button variant="contained" css={button} onClick={onAdd}>
@@ -20,3 +20,5 @@ export const TodoItemCreator = ({ value, onChange, onAdd }: Props) => (
     </Button>
   </Box>
 );
+
+export const TodoItemCreator = memo(RawTodoItemCreator);

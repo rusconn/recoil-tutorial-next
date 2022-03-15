@@ -1,6 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ListItem, IconButton, TextField, Checkbox, css, Theme } from "@mui/material";
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { ChangeEventHandler, memo, MouseEventHandler } from "react";
 
 import { ITodoItem } from "../states";
 
@@ -19,18 +19,14 @@ export type Props = Omit<ITodoItem, "id"> & {
   onDeleteClick: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const TodoItem = ({
-  text,
-  isComplete,
-  onTextChange,
-  onCheckChange,
-  onDeleteClick: onDelete,
-}: Props) => (
+const RawTodoItem = ({ text, isComplete, onTextChange, onCheckChange, onDeleteClick }: Props) => (
   <ListItem dense css={li}>
     <TextField fullWidth variant="standard" value={text} onChange={onTextChange} />
     <Checkbox checked={isComplete} onChange={onCheckChange} />
-    <IconButton edge="end" onClick={onDelete}>
+    <IconButton edge="end" onClick={onDeleteClick}>
       <DeleteIcon />
     </IconButton>
   </ListItem>
 );
+
+export const TodoItem = memo(RawTodoItem);

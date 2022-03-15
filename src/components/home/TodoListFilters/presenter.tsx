@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { memo } from "react";
 
 import { TodoListFilter, todoListFilters } from "../states";
 
@@ -7,7 +8,7 @@ export type Props = {
   onChange: (e: SelectChangeEvent) => void;
 };
 
-export const TodoListFilters = ({ filter, onChange }: Props) => (
+const RawTodoListFilters = ({ filter, onChange }: Props) => (
   <FormControl variant="standard" fullWidth>
     <InputLabel id="todo-list-filters-label">Filter</InputLabel>
     <Select
@@ -22,3 +23,5 @@ export const TodoListFilters = ({ filter, onChange }: Props) => (
     </Select>
   </FormControl>
 );
+
+export const TodoListFilters = memo(RawTodoListFilters);

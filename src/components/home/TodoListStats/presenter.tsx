@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { memo } from "react";
 
 type Props = {
   total: number;
@@ -7,12 +8,7 @@ type Props = {
   percentCompleted: number;
 };
 
-export const TodoListStats = ({
-  total,
-  totalCompleted,
-  totalUncompleted,
-  percentCompleted,
-}: Props) => (
+const RawTodoListStats = ({ total, totalCompleted, totalUncompleted, percentCompleted }: Props) => (
   <Table aria-label="todo list">
     <TableHead>
       <TableRow>
@@ -40,3 +36,5 @@ export const TodoListStats = ({
     </TableBody>
   </Table>
 );
+
+export const TodoListStats = memo(RawTodoListStats);
