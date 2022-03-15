@@ -1,1 +1,3 @@
-export * from "./component";
+import { TodoListStatsContainer as TodoListStats } from "./container";
+
+export { TodoListStats };
