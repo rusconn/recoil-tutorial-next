@@ -1,13 +1,9 @@
-import { useRecoilValue } from "recoil";
-
+import { useTodoListStats } from "./hook";
 import { TodoListStats } from "./presenter";
-import { todoListStatsState } from "./selector";
 
 export const TodoListStatsContainer = () => {
-  const { totalNum, totalCompletedNum, totalUncompletedNum, percentCompleted } =
-    useRecoilValue(todoListStatsState);
-
-  const formattedPercentCompleted = Math.round(percentCompleted);
+  const { totalNum, totalCompletedNum, totalUncompletedNum, formattedPercentCompleted } =
+    useTodoListStats();
 
   return (
     <TodoListStats

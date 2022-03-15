@@ -1,10 +1,8 @@
-import { useRecoilValue } from "recoil";
-
+import { useTodoList } from "./hook";
 import { TodoList } from "./presenter";
-import { filteredTodoListState } from "./selector";
 
 export const TodoListContainer = () => {
-  const todoList = useRecoilValue(filteredTodoListState);
+  const { todoList } = useTodoList();
 
   return <TodoList list={todoList} />;
 };

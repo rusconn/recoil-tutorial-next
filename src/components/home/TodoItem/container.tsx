@@ -1,32 +1,10 @@
-import { unsafeDeleteAt, unsafeUpdateAt } from "fp-ts/Array";
-import { useRecoilState } from "recoil";
+import { Params, useTodoItem } from "./hook";
+import { TodoItem } from "./presenter";
 
-import { ITodoItem, todoListState } from "../states";
-import { TodoItem, Props as ComponentProps } from "./presenter";
-
-type Props = {
-  item: ITodoItem;
-};
+type Props = Params;
 
 export const TodoItemContainer = ({ item }: Props) => {
-  const [todoList, setTodoList] = useRecoilState(todoListState);
-
-  const index = todoList.findIndex(listItem => listItem === item);
-
-  const updateText: ComponentProps["onTextChange"] = ({ currentTarget: { value } }) => {
-    const newList = unsafeUpdateAt(index, { ...item, text: value }, todoList);
-    setTodoList(newList);
-  };
-
-  const updateCompletion: ComponentProps["onCheckChange"] = ({ currentTarget: { checked } }) => {
-    const newList = unsafeUpdateAt(index, { ...item, isComplete: checked }, todoList);
-    setTodoList(newList);
-  };
-
-  const deleteItem: ComponentProps["onDeleteClick"] = () => {
-    const newList = unsafeDeleteAt(index, todoList);
-    setTodoList(newList);
-  };
+  const { updateText, updateCompletion, deleteItem } = useTodoItem({ item });
 
   return (
     <TodoItem
