@@ -1,11 +1,11 @@
-import { Button, TextField, styled, Box } from "@mui/material";
+import { Button, css, TextField, Theme, Box } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { todoListState } from "../states";
 
-const StyledButton = styled(Button)`
-  margin-left: ${props => props.theme.spacing(2)};
+const button = (theme: Theme) => css`
+  margin-left: ${theme.spacing(2)};
   vertical-align: bottom;
 `;
 
@@ -33,9 +33,9 @@ export const TodoItemCreator = () => {
   return (
     <Box>
       <TextField variant="standard" label="todo content" value={inputValue} onChange={updateText} />
-      <StyledButton variant="contained" onClick={addItem}>
+      <Button variant="contained" css={button} onClick={addItem}>
         Add
-      </StyledButton>
+      </Button>
     </Box>
   );
 };

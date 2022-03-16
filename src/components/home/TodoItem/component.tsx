@@ -1,17 +1,17 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ListItem, IconButton, TextField, Checkbox, styled } from "@mui/material";
+import { ListItem, IconButton, TextField, Checkbox, css, Theme } from "@mui/material";
 import { unsafeDeleteAt, unsafeUpdateAt } from "fp-ts/Array";
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 
 import { ITodoItem, todoListState } from "../states";
 
-const StyledListItem = styled(ListItem)`
+const li = (theme: Theme) => css`
   padding-left: 0;
   padding-right: 0;
 
   & .MuiFormControl-root {
-    margin-right: ${props => props.theme.spacing(2)};
+    margin-right: ${theme.spacing(2)};
   }
 `;
 
@@ -40,12 +40,12 @@ export const TodoItem = ({ item }: Props) => {
   };
 
   return (
-    <StyledListItem dense>
+    <ListItem dense css={li}>
       <TextField fullWidth variant="standard" value={item.text} onChange={updateText} />
       <Checkbox checked={item.isComplete} onChange={updateCompletion} />
       <IconButton edge="end" onClick={deleteItem}>
         <DeleteIcon />
       </IconButton>
-    </StyledListItem>
+    </ListItem>
   );
 };
