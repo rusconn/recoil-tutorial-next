@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { useRecoilState } from "recoil";
 
 import { todoListFilters, todoListFilterState, isTodoListFilter } from "../states";
@@ -6,20 +6,25 @@ import { todoListFilters, todoListFilterState, isTodoListFilter } from "../state
 export const TodoListFilters = () => {
   const [filter, setFilter] = useRecoilState(todoListFilterState);
 
-  const updateFilter = ({ currentTarget: { value } }: ChangeEvent<HTMLSelectElement>) => {
+  const updateFilter = ({ target: { value } }: SelectChangeEvent) => {
     if (isTodoListFilter(value)) {
       setFilter(value);
     }
   };
 
   return (
-    <>
-      Filter:
-      <select value={filter} onChange={updateFilter}>
-        <option value={todoListFilters[0]}>All</option>
-        <option value={todoListFilters[1]}>Completed</option>
-        <option value={todoListFilters[2]}>Uncompleted</option>
-      </select>
-    </>
+    <FormControl variant="standard" fullWidth>
+      <InputLabel id="todo-list-filters-label">Filter</InputLabel>
+      <Select
+        labelId="todo-list-filters-label"
+        id="todo-list-filters"
+        value={filter}
+        onChange={updateFilter}
+      >
+        <MenuItem value={todoListFilters[0]}>All</MenuItem>
+        <MenuItem value={todoListFilters[1]}>Completed</MenuItem>
+        <MenuItem value={todoListFilters[2]}>Uncompleted</MenuItem>
+      </Select>
+    </FormControl>
   );
 };

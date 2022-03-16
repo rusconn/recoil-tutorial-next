@@ -1,7 +1,13 @@
+import { Button, TextField, styled, Box } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { todoListState } from "../states";
+
+const StyledButton = styled(Button)`
+  margin-left: ${props => props.theme.spacing(2)};
+  vertical-align: bottom;
+`;
 
 export const TodoItemCreator = () => {
   const [id, setId] = useState(1);
@@ -25,11 +31,11 @@ export const TodoItemCreator = () => {
   };
 
   return (
-    <div>
-      <input type="text" value={inputValue} onChange={updateText} />
-      <button type="button" onClick={addItem}>
+    <Box>
+      <TextField variant="standard" label="todo content" value={inputValue} onChange={updateText} />
+      <StyledButton variant="contained" onClick={addItem}>
         Add
-      </button>
-    </div>
+      </StyledButton>
+    </Box>
   );
 };

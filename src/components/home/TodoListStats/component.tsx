@@ -1,3 +1,4 @@
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useRecoilValue } from "recoil";
 
 import { todoListStatsState } from "./selector";
@@ -9,11 +10,31 @@ export const TodoListStats = () => {
   const formattedPercentCompleted = Math.round(percentCompleted);
 
   return (
-    <ul>
-      <li>Total items: {totalNum}</li>
-      <li>Items completed: {totalCompletedNum}</li>
-      <li>Items not completed: {totalUncompletedNum}</li>
-      <li>Percent completed: {formattedPercentCompleted}</li>
-    </ul>
+    <Table aria-label="todo list">
+      <TableHead>
+        <TableRow>
+          <TableCell width="20%" align="right">
+            Total
+          </TableCell>
+          <TableCell width="25%" align="right">
+            Completed
+          </TableCell>
+          <TableCell width="25%" align="right">
+            Not Completed
+          </TableCell>
+          <TableCell width="30%" align="right">
+            Percent Completed
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell align="right">{totalNum}</TableCell>
+          <TableCell align="right">{totalCompletedNum}</TableCell>
+          <TableCell align="right">{totalUncompletedNum}</TableCell>
+          <TableCell align="right">{formattedPercentCompleted}</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 };

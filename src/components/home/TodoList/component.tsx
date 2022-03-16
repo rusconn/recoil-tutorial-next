@@ -1,3 +1,4 @@
+import { List } from "@mui/material";
 import { useRecoilValue } from "recoil";
 
 import { TodoItem } from "../TodoItem";
@@ -7,10 +8,10 @@ export const TodoList = () => {
   const todoList = useRecoilValue(filteredTodoListState);
 
   return (
-    <ul>
+    <List>
       {todoList.map(todoItem => (
         <TodoItem key={todoItem.id} item={todoItem} />
       ))}
-    </ul>
+    </List>
   );
 };
