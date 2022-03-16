@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { TodoListArea } from "@/components/home";
 import { Layout } from "@/components/layout";
+import { TodoListArea } from "@/components/pages/home";
 
 const Home: NextPage = () => (
   <Layout>
