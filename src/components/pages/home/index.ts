@@ -1,1 +1,3 @@
-export * from "./TodoListArea";
+import TodoListArea from "./TodoListArea";
+
+export { TodoListArea };
