@@ -8,7 +8,7 @@ RecoilのチュートリアルをNext.jsでやる
 - React v17
 - Recoil 0.6
 - MUI v5
-- Emotion 11 (css prop)
+- Emotion 11
 
 ## 参考リポジトリ
 

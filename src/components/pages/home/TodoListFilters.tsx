@@ -1,16 +1,24 @@
-import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  styled,
+} from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import { memo, useCallback } from "react";
 import { useRecoilState } from "recoil";
 
 import { isTodoListFilter, TodoListFilter, todoListFilters, todoListFilterState } from "./states";
 
-type Props = {
+type Props = Pick<CommonProps, "className"> & {
   filter: TodoListFilter;
   onChange: (e: SelectChangeEvent) => void;
 };
 
-const StyledComponent = ({ filter, onChange }: Props) => (
-  <FormControl variant="standard" fullWidth>
+const RawComponent = ({ className, filter, onChange }: Props) => (
+  <FormControl className={className} variant="standard" fullWidth>
     <InputLabel id="todo-list-filters-label">Filter</InputLabel>
     <Select
       labelId="todo-list-filters-label"
@@ -24,6 +32,8 @@ const StyledComponent = ({ filter, onChange }: Props) => (
     </Select>
   </FormControl>
 );
+
+const StyledComponent = styled(RawComponent)``;
 
 export const Component = memo(StyledComponent);
 

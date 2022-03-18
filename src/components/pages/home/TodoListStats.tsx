@@ -1,18 +1,25 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { styled, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import { memo } from "react";
 import { selector, useRecoilValue } from "recoil";
 
 import { todoListState } from "./states";
 
-type Props = {
+type Props = Pick<CommonProps, "className"> & {
   total: number;
   totalCompleted: number;
   totalUncompleted: number;
   percentCompleted: number;
 };
 
-const StyledComponent = ({ total, totalCompleted, totalUncompleted, percentCompleted }: Props) => (
-  <Table aria-label="todo list">
+const RawComponent = ({
+  className,
+  total,
+  totalCompleted,
+  totalUncompleted,
+  percentCompleted,
+}: Props) => (
+  <Table className={className} aria-label="todo list">
     <TableHead>
       <TableRow>
         <TableCell width="20%" align="right">
@@ -39,6 +46,8 @@ const StyledComponent = ({ total, totalCompleted, totalUncompleted, percentCompl
     </TableBody>
   </Table>
 );
+
+const StyledComponent = styled(RawComponent)``;
 
 export const Component = memo(StyledComponent);
 

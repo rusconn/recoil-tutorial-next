@@ -1,28 +1,31 @@
-import { Button, css, TextField, Theme, Box } from "@mui/material";
+import { Button, TextField, styled, Box } from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import { ChangeEventHandler, memo, MouseEventHandler, useCallback, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { todoListState } from "./states";
 
-type Props = {
+type Props = Pick<CommonProps, "className"> & {
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onAdd: MouseEventHandler<HTMLButtonElement>;
 };
 
-const button = (theme: Theme) => css`
-  margin-left: ${theme.spacing(2)};
-  vertical-align: bottom;
-`;
-
-const StyledComponent = ({ value, onChange, onAdd }: Props) => (
-  <Box>
+const RawComponent = ({ className, value, onChange, onAdd }: Props) => (
+  <Box className={className}>
     <TextField variant="standard" label="todo content" value={value} onChange={onChange} />
-    <Button variant="contained" css={button} onClick={onAdd}>
+    <Button variant="contained" onClick={onAdd}>
       Add
     </Button>
   </Box>
 );
+
+const StyledComponent = styled(RawComponent)`
+  & > button {
+    margin-left: ${props => props.theme.spacing(2)};
+    vertical-align: bottom;
+  }
+`;
 
 export const Component = memo(StyledComponent);
 

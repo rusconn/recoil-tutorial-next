@@ -1,5 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ListItem, IconButton, TextField, Checkbox, css, Theme } from "@mui/material";
+import { ListItem, IconButton, TextField, Checkbox, styled } from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import { unsafeDeleteAt, unsafeUpdateAt } from "fp-ts/Array";
 import { useCallback, memo, ChangeEventHandler, MouseEventHandler } from "react";
 import { useRecoilState } from "recoil";
@@ -10,29 +11,22 @@ type ContainerProps = {
   item: ITodoItem;
 };
 
-type Props = Omit<ITodoItem, "id"> & {
-  onTextChange: ChangeEventHandler<HTMLInputElement>;
-  onCheckChange: ChangeEventHandler<HTMLInputElement>;
-  onDeleteClick: MouseEventHandler<HTMLButtonElement>;
-};
+type Props = Pick<CommonProps, "className"> &
+  Omit<ITodoItem, "id"> & {
+    onTextChange: ChangeEventHandler<HTMLInputElement>;
+    onCheckChange: ChangeEventHandler<HTMLInputElement>;
+    onDeleteClick: MouseEventHandler<HTMLButtonElement>;
+  };
 
-const li = (theme: Theme) => css`
-  padding-left: 0;
-  padding-right: 0;
-
-  & .MuiFormControl-root {
-    margin-right: ${theme.spacing(2)};
-  }
-`;
-
-const StyledComponent = ({
+const RawComponent = ({
+  className,
   text,
   isComplete,
   onTextChange,
   onCheckChange,
   onDeleteClick,
 }: Props) => (
-  <ListItem dense css={li}>
+  <ListItem dense className={className}>
     <TextField fullWidth variant="standard" value={text} onChange={onTextChange} />
     <Checkbox checked={isComplete} onChange={onCheckChange} />
     <IconButton edge="end" onClick={onDeleteClick}>
@@ -40,6 +34,15 @@ const StyledComponent = ({
     </IconButton>
   </ListItem>
 );
+
+const StyledComponent = styled(RawComponent)`
+  padding-left: 0;
+  padding-right: 0;
+
+  & .MuiFormControl-root {
+    margin-right: ${props => props.theme.spacing(2)};
+  }
+`;
 
 export const Component = memo(StyledComponent);
 

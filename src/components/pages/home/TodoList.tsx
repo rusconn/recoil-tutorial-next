@@ -1,4 +1,5 @@
-import { List } from "@mui/material";
+import { List, styled } from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import equal from "fast-deep-equal";
 import { memo } from "react";
 import { selector, useRecoilValue } from "recoil";
@@ -6,17 +7,19 @@ import { selector, useRecoilValue } from "recoil";
 import { ITodoItem, todoListFilterState, todoListState } from "./states";
 import TodoItem from "./TodoItem";
 
-type Props = {
+type Props = Pick<CommonProps, "className"> & {
   list: ITodoItem[];
 };
 
-const StyledComponent = ({ list }: Props) => (
-  <List>
+const RawComponent = ({ className, list }: Props) => (
+  <List className={className}>
     {list.map(todoItem => (
       <TodoItem key={todoItem.id} item={todoItem} />
     ))}
   </List>
 );
+
+const StyledComponent = styled(RawComponent)``;
 
 export const Component = memo(StyledComponent, equal);
 

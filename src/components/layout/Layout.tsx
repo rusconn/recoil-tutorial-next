@@ -1,18 +1,19 @@
-import { Container, Theme, css } from "@mui/material";
+import { Container, styled } from "@mui/material";
+import { CommonProps } from "@mui/material/OverridableComponent";
 import { PropsWithChildren } from "react";
 
-type Props = Pick<PropsWithChildren<unknown>, "children">;
+type Props = Pick<PropsWithChildren<unknown>, "children"> & Pick<CommonProps, "className">;
 
-const container = (theme: Theme) => css`
-  padding-top: ${theme.spacing(2)};
-
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
-    padding-top: ${theme.spacing(3)};
-  }
-`;
-
-export const Layout = ({ children }: Props) => (
-  <Container css={container} maxWidth="sm">
+const Component = ({ children, className }: Props) => (
+  <Container className={className} maxWidth="sm">
     {children}
   </Container>
 );
+
+export const Layout = styled(Component)`
+  padding-top: ${props => props.theme.spacing(2)};
+
+  @media (min-width: ${props => props.theme.breakpoints.values.sm}px) {
+    padding-top: ${props => props.theme.spacing(3)};
+  }
+`;
